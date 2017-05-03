@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+ <html>
+ <head>
+   <meta http-equiv="content-type" content="text/html; charset=UTF-8"/>
+   <title>Directions between places</title>
+
+</head>
+<body>
+<div class="col-xs-6">
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      Enter your address: <input id="address" type="text" />
+        <input id="submit" type="submit" class="pull-right" />
+    </div>
+
+
+    <div class="panel-body">
+      <div class="mode_sel">
+          <input type="checkbox" id="walking" class="mode"><label for="walking" class="half-pad">walking</label>
+          <input type="checkbox" id="biking" class="mode"><label for="biking" class="half-pad">biking</label>
+          <input type="checkbox" id="transit" class="mode"><label for="transit" class="half-pad">transit</label>
+      </div>
+
+      <button type="button" id="no_stop" hidden> remove stopovers </button>
+      <button type="button" id="add_stop"> add stopovers </button>
+
+      <div class="waypoints">
+          <div class="row" id="stop1" hidden>
+            <label for="waypoint_1" >stopover 1</label>
+            <input type="text" id="waypoint_1" name="" value="">
+          </div>
+          <div class="row" id="stop2" hidden>
+            <label for="waypoint_1">stopover 2</label>
+            <input type="text" id="waypoint_2" name="" value="" >
+          </div>
+          <div class="row" id="stop3" hidden>
+            <label for="waypoint_1">stopover 3</label>
+            <input type="text" id="waypoint_3" name="" value="">
+          </div>
+    </div>
+  </div>
+</div>
+
+</div>
+
+<div style="width: 600px;">
+ <div id="map" style="width:500px; height: 500px; float: left;"></div>
+
+</div>
+
+<div class="container col-xs-12">
+  <div class="footer" id='panel'>
+
+  </div>
+</div>
+
+</body>
+</html>
