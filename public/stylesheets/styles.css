@@ -16,5 +16,15 @@ html, body {
 }
 
 .waypoints {
+
+  padding:  0;
+}
+.label{
   padding-left: 1em;
+}
+.keywordsLabel {
+  font-size: 0.5em;
+}
+.hide_btn {
+  display: none !important; 
 }
