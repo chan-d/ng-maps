@@ -6,10 +6,10 @@ Link: https://meanmap.herokuapp.com/
 - `mongod`
 - `nodemon`
 
-##Description
+## Description
 This app was built using pure JavaScript, HTML and CSS. Users are able to input their starting location and route their way to the ClickTime office with the option to include up to three additional steps.
 
-##Concerns/TODOs
+## Concerns/TODOs
 Need to write a better algorithm to determine the least distance to travel between waypoints. As of right now it selects the option that deviates the least along the route.
 
 Need to fix the transit select option. As of right now, it breaks if there is more than one stop so the transit option is hidden if there are stopovers.
