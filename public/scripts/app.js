@@ -48,6 +48,7 @@ function HomeController ($http) {
    });
 
    function doSearch() {
+
      var keyword = document.getElementById('keyword').value;
      //keyword 1
     var type = document.getElementById('type').value;
@@ -56,6 +57,10 @@ function HomeController ($http) {
 
     if (keyword) {
       search.keyword = keyword;
+    }
+    if (!keyword) {
+      console.log('doSearch now keyword 1');
+      return;
     }
 
     if (type != 'establishment') {
@@ -77,6 +82,7 @@ function HomeController ($http) {
        location: {lat, lng},
        stopover: true
       }
+      console.log("waypoint1", waypoint1);
     }
   });
 }
@@ -90,6 +96,10 @@ var keyword2 = document.getElementById('keyword2').value;
 
  if (keyword2) {
    search2.keyword = keyword2;
+ }
+ if (!keyword2) {
+   //stop function if no keyword
+   return;
  }
 
  if (type2 != 'establishment') {
@@ -111,6 +121,7 @@ var keyword2 = document.getElementById('keyword2').value;
     location: {lat, lng},
     stopover: true
    }
+   console.log("waypoint2", waypoint2);
  }
 });
 }
@@ -125,6 +136,10 @@ function doSearch3() {
 
  if (keyword3) {
    search3.keyword = keyword3;
+ }
+ if (!keyword3) {
+   //stop funtion if no keyword
+   return;
  }
 
  if (type3 != 'establishment') {
@@ -146,17 +161,15 @@ function doSearch3() {
     location: {lat, lng},
     stopover: true
    }
+   console.log("waypoint3", waypoint3);
  }
 });
 }
 
   $('#kw_submit').click(function(){
-    setTimeout(function(){
       doSearch();
       doSearch2();
       doSearch3();
-    }, 5000);
-
     $('#submit').show();
     $('#kw_submit').hide();
   });
@@ -166,7 +179,6 @@ function doSearch3() {
  $('#add_stop').click(function(){
    if ($('#transit')){
      $('#transit').prop("checked", false);
-
      $('#transit').hide();
      $('#t_label').hide();
    }
@@ -189,68 +201,76 @@ function doSearch3() {
  });
 
   $('#submit').click(function() {
-    var org = $('#address').val();
-    if (!org) {
-      alert('please enter origin address');
-      return;
+    var tMOde;
+    if($('#walking').is(":checked")){
+      tMode = "WALKING";
+    } else if($('#biking').is(":checked")) {
+      tMode = "BICYCLING";
+    } else if($('#transit').is(":checked")) {
+      tMode = "TRANSIT";
+    } else {
+      alert("select transit type");
     }
-    map = new google.maps.Map(document.getElementById('map'), {
-      zoom:13,
-      center: {lat: 37.785636, lng: -122.397119},
-      mapTypeId: google.maps.MapTypeId.ROADMAP
-    });
-
-    $('#panel').empty();
-     directionsDisplay = new google.maps.DirectionsRenderer();
-      var address = $('#address').val();
-      directionsDisplay.setMap(map);
-      directionsDisplay.setPanel(document.getElementById('panel'));
-      var wypnt = [];
-         //check for waypoints
-         if (waypoint1){
-           wypnt.push(waypoint1);
-         } else if ($('#waypoint_1').val()) {
-           wypnt.push({location: $('#waypoint_1').val(), stopover: true});
-         }
-         if (waypoint2) {
-           wypnt.push(waypoint2);
-         } else if ($('#waypoint_2').val()) {
-           wypnt.push({location: $('#waypoint_2').val(), stopover: true});
-         }
-         if (waypoint3){
-           wypnt.push(waypoint3);
-         } else if ($("#waypoint_3").val()) {
-           wypnt.push({location: $("#waypoint_3").val(), stopover: true});
-
-         }
-
-     var tMOde;
-     if($('#walking').is(":checked")){
-       tMode = "WALKING";
-     } else if($('#biking').is(":checked")) {
-       tMode = "BICYCLING";
-     } else if($('#transit').is(":checked")) {
-       tMode = "TRANSIT";
-     } else {
-       alert("select transit type");
-     }
-
-      var request = {
-       origin: address,
-       destination: '37.785636, -122.397119',
-       waypoints: wypnt,
-       optimizeWaypoints:true,
-       travelMode: tMode
-      };
-
-      directionsService.route(request, function(response, status) {
-       if (status == google.maps.DirectionsStatus.OK) {
-           directionsDisplay.setDirections(response);
-           waypoint1;
-           waypoint2;
-           waypoint3;
-       }
+    setTimeout(function(){
+      var org = $('#address').val();
+      if (!org) {
+        alert('please enter origin address');
+        return;
+      }
+      map = new google.maps.Map(document.getElementById('map'), {
+        zoom:13,
+        center: {lat: 37.785636, lng: -122.397119},
+        mapTypeId: google.maps.MapTypeId.ROADMAP
       });
+
+      $('#panel').empty();
+       directionsDisplay = new google.maps.DirectionsRenderer();
+        var address = $('#address').val();
+        directionsDisplay.setMap(map);
+        directionsDisplay.setPanel(document.getElementById('panel'));
+        var wypnt = [];
+           //check for waypoints
+           if (waypoint1){
+             wypnt.push(waypoint1);
+           } else if($('#waypoint_1').val()) {
+             wypnt.push({location: $('#waypoint_1').val(), stopover: true});
+           }
+
+           if (waypoint2) {
+             wypnt.push(waypoint2);
+           } else if ($('#waypoint_2').val()) {
+             wypnt.push({location: $('#waypoint_2').val(), stopover: true});
+           }
+
+           if (waypoint3){
+             wypnt.push(waypoint3);
+           } else if ($("#waypoint_3").val()){
+             wypnt.push({location: $("#waypoint_3").val(), stopover: true});
+           } 
+
+
+
+        var request = {
+         origin: address,
+         destination: '37.785636, -122.397119',
+         waypoints: wypnt,
+         optimizeWaypoints:true,
+         travelMode: tMode
+        };
+
+        directionsService.route(request, function(response, status) {
+         if (status == google.maps.DirectionsStatus.OK) {
+             directionsDisplay.setDirections(response);
+             waypoint1;
+             waypoint2;
+             waypoint3;
+         }
+        });
+
+
+
+    }, 5000);
+
 
 
   });
