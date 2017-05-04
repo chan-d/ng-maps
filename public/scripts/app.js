@@ -48,9 +48,8 @@ function HomeController ($http) {
    });
 
    function doSearch() {
-
-     var keyword = document.getElementById('keyword').value;
-     //keyword 1
+    var keyword = document.getElementById('keyword').value;
+     //keyword 1 search
     var type = document.getElementById('type').value;
     var rankBy = document.getElementById('rankBy').value;
     var search = {};
@@ -73,12 +72,12 @@ function HomeController ($http) {
     } else {
       search.bounds = map.getBounds();
     }
-
+    //API call and assign waypoint
     places.search(search, function(results, status) {
     if (status == google.maps.places.PlacesServiceStatus.OK) {
       var lat = results[0].geometry.location.lat();
       var lng = results[0].geometry.location.lng();
-      waypoint1 = {
+       waypoint1 = {
        location: {lat, lng},
        stopover: true
       }
@@ -88,8 +87,8 @@ function HomeController ($http) {
 }
 
 function doSearch2() {
-  //keyword 2
-var keyword2 = document.getElementById('keyword2').value;
+  //keyword 2 search
+ var keyword2 = document.getElementById('keyword2').value;
  var type2 = document.getElementById('type2').value;
  var rankBy = document.getElementById('rankBy').value;
  var search2 = {};
@@ -112,12 +111,12 @@ var keyword2 = document.getElementById('keyword2').value;
  } else {
    search2.bounds = map.getBounds();
  }
-
+ //API call and assign waypoint
  places.search(search2, function(results, status) {
  if (status == google.maps.places.PlacesServiceStatus.OK) {
    var lat = results[0].geometry.location.lat();
    var lng = results[0].geometry.location.lng();
-   waypoint2 = {
+    waypoint2 = {
     location: {lat, lng},
     stopover: true
    }
@@ -129,43 +128,43 @@ var keyword2 = document.getElementById('keyword2').value;
 
 function doSearch3() {
   var keyword3 = document.getElementById('keyword3').value;
-  //keyword 3
- var type3 = document.getElementById('type3').value;
- var rankBy = document.getElementById('rankBy').value;
- var search3 = {};
+  //keyword 3 search
+   var type3 = document.getElementById('type3').value;
+   var rankBy = document.getElementById('rankBy').value;
+   var search3 = {};
 
- if (keyword3) {
-   search3.keyword = keyword3;
- }
- if (!keyword3) {
-   //stop funtion if no keyword
-   return;
- }
+   if (keyword3) {
+     search3.keyword = keyword3;
+   }
+   if (!keyword3) {
+     //stop funtion if no keyword
+     return;
+   }
 
- if (type3 != 'establishment') {
-   search3.types = [type3];
- }
+   if (type3 != 'establishment') {
+     search3.types = [type3];
+   }
 
- if (rankBy == 'distance' && (search3.types || search3.keyword3)) {
-   search3.rankBy = google.maps.places.RankBy.DISTANCE;
-   search3.location = map.getCenter();
- } else {
-   search3.bounds = map.getBounds();
- }
-
- places.search(search3, function(results, status) {
- if (status == google.maps.places.PlacesServiceStatus.OK) {
+   if (rankBy == 'distance' && (search3.types || search3.keyword3)) {
+     search3.rankBy = google.maps.places.RankBy.DISTANCE;
+     search3.location = map.getCenter();
+   } else {
+     search3.bounds = map.getBounds();
+   }
+   //API call and assign waypoint
+   places.search(search3, function(results, status) {
+   if (status == google.maps.places.PlacesServiceStatus.OK) {
    var lat = results[0].geometry.location.lat();
    var lng = results[0].geometry.location.lng();
-   waypoint3 = {
-    location: {lat, lng},
-    stopover: true
-   }
+     waypoint3 = {
+      location: {lat, lng},
+      stopover: true
+     }
    console.log("waypoint3", waypoint3);
  }
 });
 }
-
+  //do search for keyword input boxes
   $('#kw_submit').click(function(){
       doSearch();
       doSearch2();
@@ -173,7 +172,6 @@ function doSearch3() {
     $('#submit').show();
     $('#kw_submit').hide();
   });
-
 
    //show stopover input boxes
  $('#add_stop').click(function(){
@@ -189,7 +187,7 @@ function doSearch3() {
    $('#submit').hide();
    $('.s_msg').show();
  });
-
+ //hide stopver input boxes
  $('#no_stop').click(function(){
    $('#add_stop').show();
    $('#no_stop').addClass('hide_btn');
@@ -202,6 +200,7 @@ function doSearch3() {
  });
 
   $('#submit').click(function() {
+    //check travel mode
     var tMOde;
     if($('#walking').is(":checked")){
       tMode = "WALKING";
@@ -212,6 +211,7 @@ function doSearch3() {
     } else {
       alert("select transit type");
     }
+    //wait for response from google
     setTimeout(function(){
       var org = $('#address').val();
       if (!org) {
@@ -249,16 +249,14 @@ function doSearch3() {
              wypnt.push({location: $("#waypoint_3").val(), stopover: true});
            }
 
-
-
-        var request = {
-         origin: address,
-         destination: '37.785636, -122.397119',
-         waypoints: wypnt,
-         optimizeWaypoints:true,
-         travelMode: tMode
-        };
-
+          var request = {
+           origin: address,
+           destination: '37.785636, -122.397119',
+           waypoints: wypnt,
+           optimizeWaypoints:true,
+           travelMode: tMode
+          };
+          //render directions
         directionsService.route(request, function(response, status) {
          if (status == google.maps.DirectionsStatus.OK) {
              directionsDisplay.setDirections(response);
@@ -267,8 +265,6 @@ function doSearch3() {
              waypoint3;
          }
         });
-
-
 
     }, 5000);
 
