@@ -198,6 +198,7 @@ function doSearch3() {
    $('.s_msg').hide();
    $('#transit').show();
    $('#t_label').show();
+   $('#submit').show();
  });
 
   $('#submit').click(function() {
@@ -246,7 +247,7 @@ function doSearch3() {
              wypnt.push(waypoint3);
            } else if ($("#waypoint_3").val()){
              wypnt.push({location: $("#waypoint_3").val(), stopover: true});
-           } 
+           }
 
 
 
