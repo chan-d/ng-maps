@@ -25,11 +25,11 @@
       </div>
 
 
-<div class="col-xs-12">
+<div class="col-md-12 col-xs-12">
   <p class='s_msg' hidden>Enter up to 3 stopover addresses on the left OR search by keyword on the right</p>
   <p class='s_msg' hidden>When you are finished adding stopovers, click the "I'm feeling lucky" button </p>
   <p class='s_msg' hidden>Then, click the "Submit" button </p>
-  <div class="waypoints col-xs-5" hidden>
+  <div class="waypoints col-md-4 col-xs-5" hidden>
       <div class="row" id="stop1" >
         <label for="waypoint_1" style="padding-left:1em;">stopover 1</label>
         <input type="text" id="waypoint_1" placeholder="enter address">
@@ -45,13 +45,13 @@
       </div>
     </div>
 
-    <div class="waypoints col-xs-7" hidden>
+    <div class="waypoints col-md-5 col-xs-6 col-xs-offset-1" hidden>
       <div class="row">
           <div class="kwf" style="display:inline-block">
             <input id="keyword" type="text" value="" placeholder="Keyword"/>
           </div>
         <div id="controls" style="display:inline-block">
-          <span id="typeLabel">Type:</span>
+
           <select id="type">
             <option value="bank">Bank</option>
             <option value="bar">Bars</option>
@@ -68,7 +68,7 @@
           <input id="keyword2" type="text" value="" placeholder="Keyword"/>
         </div>
       <div id="controls" style="display:inline-block">
-        <span id="typeLabel">Type:</span>
+
         <select id="type2">
           <option value="bank">Bank</option>
           <option value="bar">Bars</option>
@@ -84,7 +84,7 @@
         <input id="keyword3" type="text" value="" placeholder="Keyword"/>
       </div>
       <div id="controls" style="display:inline-block">
-        <span id="typeLabel">Type:</span>
+        
           <select id="type3">
             <option value="bank">Bank</option>
             <option value="bar">Bars</option>
@@ -97,7 +97,9 @@
       </div>
       </div>
     </div>
-    <button type="button" id="kw_submit" class="pull-right btn btn-success hide_btn" >I'm feeling' lucky!</button>
+    <div class="col-md-12 col-xs-12 row">
+      <button type="button" id="kw_submit" class="pull-right btn btn-success hide_btn" >I'm feeling' lucky!</button>
+    </div>
 </div>
 
 
